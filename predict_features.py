@@ -61,6 +61,7 @@ def predict_features(list_queries,layer='SCAN_filter_activity_aa',
     permissive=permissive,
     output_format = output_format
     )
+
     if output_format == 'numpy':
         query_pdbs, query_names, query_features, query_residue_ids, query_sequences = query_outputs
 
@@ -80,10 +81,11 @@ def predict_features(list_queries,layer='SCAN_filter_activity_aa',
             query_pdbs = query_pdbs[0]
             query_names = query_names[0]
             query_dictionary_features = query_dictionary_features[0]
-        if permissive:
-            return query_pdbs,query_dictionary_features
-        else:
-            return query_dictionary_features
+        # if permissive:
+        #     return query_pdbs,query_dictionary_features
+        # else:
+        #     return query_dictionary_features
+        return (query_names,query_dictionary_features)
 
 
 
@@ -117,6 +119,13 @@ if __name__ == '__main__':
                     print('AA' ,key,'Features:',[item_[:5] for item_ in item],'Feature shapes',list_shapes)
                 else:
                     print('AA',key, 'Features:',item[:5],'Feature shape',item.shape)
+
+
+
+
+
+
+
     elif output_format == 'numpy':
         list_names,list_features, list_residue_ids = predict_features(['1a3x_A','1brs_A'],layer=layer,model=model,output_format='numpy',permissive=True)
         print('Numpy format: Numpy arrays with residue ids as key and features as items.')
